@@ -1,22 +1,47 @@
 const express = require("express");
-// const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const path = require("path")
 const app = express();
 const port = 3000;
 
 const apiRouter = require("./routes/index.js");
+const error = require("./utilities/error");
 
-app.use(express.json());
-app.use(express.urlencoded({extended: true}))
+// app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ extended: true }));
+//api routes
 app.use("/api", apiRouter);
 
+//server static files from public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.engine("ejs", ejs);
 app.set("views", "./views");
-app.set("view engine", "ejs")
+app.set("view engine", "ejs");
 
+// Logging Middlewaare
+app.use((req, res, next) => {
+  const time = new Date();
+
+  console.log(
+    `-----
+${time.toLocaleTimeString()}: Received a ${req.method} request to ${req.url}.`
+  );
+  if (Object.keys(req.body).length > 0) {
+    console.log("Containing the data:");
+    console.log(`${JSON.stringify(req.body)}`);
+  }
+  next();
+});
+
+// 404 Middleware
+app.use((req, res, next) => {
+  next(error(404, "Resource Not Found"));
+});
+
+//Middleware for error handling
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.json({ error: err.message });
