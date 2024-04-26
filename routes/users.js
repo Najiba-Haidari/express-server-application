@@ -6,6 +6,7 @@ const error = require("../utilities/error.js")
 
 router
     .route("/")
+    //to get the users in front end through ejs template
     // .get((req, res) => {
     //     // res.json(users);
     //     res.render("users", { users:users})
@@ -61,8 +62,9 @@ router
         const user = users.find((u, i)=> {
             if (u.id == req.params.id){
                 users.splice(i, 1)
+                return true;
             }
-            return true;
+          
         })
         if (user){
             res.json(user)
