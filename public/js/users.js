@@ -1,7 +1,7 @@
 const navbarImg = document.getElementById("home");
 
 navbarImg.addEventListener("click", ()=> {
-    window.location.reload();
+    window.location.replace("http://127.0.0.1:3000/");
 })
 
 // const modal = document.getElementById("exampleModal");

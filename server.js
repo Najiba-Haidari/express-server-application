@@ -22,6 +22,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
+app.get("/", (req, res)=> {
+  res.send("Visit /api/users for Users \n /api/exercises for Exercises")
+})
+
 // Logging Middlewaare
 app.use((req, res, next) => {
   const time = new Date();
