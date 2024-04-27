@@ -1,0 +1,36 @@
+* {
+  /* background-color: rgb(221, 240, 248); */
+  opacity: 0.95;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+#home{
+    color: white;
+}
+
+.card {
+  border-radius: 5px;
+  box-shadow: 10px 5px 5px rgba(151, 147, 147, 0.5);
+  padding: 10px;
+  margin: 10px;
+  width: 90%;
+  line-height: 5px;
+}
+.card:hover {
+  /* width: 310px; */
+  /* height: 190px; */
+  box-shadow: 10px 5px 5px rgb(22, 22, 22);
+}
+.container {
+  background-color: rgb(180, 222, 247);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+}
+h1,
+h2 {
+  margin-top: 30px;
+  text-align: center;
+}

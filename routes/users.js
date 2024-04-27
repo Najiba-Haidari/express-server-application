@@ -6,19 +6,20 @@ const error = require("../utilities/error.js")
 
 router
     .route("/")
-    //to get the users in front end through ejs template
-    // .get((req, res) => {
-    //     // res.json(users);
-    //     res.render("users", { users:users})
-    // })
+    // to get the users in front end through ejs template
     .get((req, res) => {
-        res.json(users);
+        // res.json(users);
+        res.render("users", { users:users})
     })
+    // .get((req, res) => {
+    //     res.json(users);
+    // })
     .post((req, res, next) => {
         if (req.body.name && req.body.username && req.body.email) {
             const foundUser = users.find((u) => u.username == req.body.username)
             if (foundUser) {
-                next(error(409, "Username is Already Taken, use another username!"))
+                next(error(409, "Username is Already Taken, use another username!"));
+                return;
             }
             const user = {
                 id: users[users.length - 1].id + 1,
@@ -27,7 +28,7 @@ router
                 email: req.body.email
             }
             users.push(user);
-            res.json(users[users.length - 1]);
+            res.render("users", {users: users});
         } else {
             next(error(400, "Please enter all required data!"))
         }
