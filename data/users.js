@@ -13,7 +13,7 @@
     },
     {
         "id": 3,
-        "name": "Mike Johnsonnn",
+        "name": "Mike Johnson",
         "username": "mikej",
         "email": "mike@example.com"
     },
@@ -46,11 +46,5 @@
         "name": "Hannah",
         "username": "Mirzaei",
         "email": "hannah@mail.com"
-    },
-    {
-        "id": 9,
-        "name": "Mike Johnso",
-        "username": "mikeja",
-        "email": "mike@example.com"
     }
 ]

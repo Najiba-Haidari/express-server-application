@@ -121,27 +121,26 @@ router
     .delete((req, res, next) => {
         readFile(usersFilePath, (err, users) => {
             if (err) {
-                console.error("Error reading file in /:id")
+                console.error("Error reading file in /:id");
+                return next(error(500, "Internal Server Error"));
             }
-            const user = users.find((u, i) => {
-                if (u.id == req.params.id) {
-                    users.splice(i, 1)
-                }
+            const index = users.findIndex(u => u.id == req.params.id);
+            if (index !== -1) {
+                users.splice(index, 1);
                 fs.writeFile(usersFilePath, JSON.stringify(users, null, 4), (writeErr) => {
                     if (writeErr) {
                         console.error("Error writing users file:", writeErr);
                         return next(error(500, "Internal Server Error"));
                     }
                     console.log("Successfully deleted");
-                })
-                return true;
-            })
-            if (user) {
-                res.json(user)
+                    res.json({ success: true });
+                });
             } else {
-                next()
+                console.log("User not found");
+                next();
             }
-        })
-    })
+        });
+    });
+    
 
 module.exports = router;
