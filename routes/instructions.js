@@ -18,7 +18,14 @@ router
     })
     //api/instructions
     .get((req, res) => {
-        res.json(instructions)
+        const links = [
+            {
+                href: "instructions/:id",
+                rel: ":id",
+                type: "GET",
+            },
+        ];
+        res.json({ instructions, links })
     })
     .post((req, res, next) => {
         if (req.body.userId && req.body.exerciseId && req.body.content) {
@@ -44,8 +51,20 @@ router
     .get((req, res, next) => {
         const instructionId = req.params.id;
         const foundInstruction = instructions.find((ins) => ins.id == req.params.id)
+        const links = [
+            {
+                href: `/${req.params.id}`,
+                rel: "",
+                type: "PATCH",
+            },
+            {
+                href: `/${req.params.id}`,
+                rel: "",
+                type: "DELETE",
+            },
+        ];
         if (foundInstruction) {
-            res.json(foundInstruction)
+            res.json({ foundInstruction, links })
         } else {
             next();
         }

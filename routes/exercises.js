@@ -11,14 +11,21 @@ router
         const exerciseUserId = req.query.userId;
         // res.send(exerciseUserId)
         if (exerciseUserId) {
-          const foundExercises = exercises.filter((ex) => ex.userId == exerciseUserId)
-          res.json(foundExercises);
+            const foundExercises = exercises.filter((ex) => ex.userId == exerciseUserId)
+            res.json(foundExercises);
         }
         else next();
-      })
-      //api/exercises
+    })
+    //api/exercises
     .get((req, res) => {
-        res.json(exercises)
+        const links = [
+            {
+                href: "exercises/:id",
+                rel: ":id",
+                type: "GET",
+            },
+        ];
+        res.json({ exercises, links })
     })
     .post((req, res, next) => {
         if (req.body.userId && req.body.exerciseName && req.body.content) {
@@ -44,8 +51,21 @@ router
     .get((req, res, next) => {
         const exerciseId = req.params.id;
         const exercise = exercises.find((e) => e.id == exerciseId)
+        const links = [
+            {
+                href: `/${req.params.id}`,
+                rel: "",
+                type: "PATCH",
+            },
+            {
+                href: `/${req.params.id}`,
+                rel: "",
+                type: "DELETE",
+            },
+        ];
+
         if (exercise) {
-            res.json(exercise)
+            res.json({ exercise, links })
         } else {
             next();
         }
@@ -56,7 +76,7 @@ router
                 //for in loop to iterate over properties of an object
                 for (const key in req.body) {
                     exercises[i][key] = req.body[key]
-                  
+
                 }
                 return true;
             }

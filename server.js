@@ -12,6 +12,12 @@ const error = require("./utilities/error");
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
+
+//custom middleware for logging info
+app.use((req, res, next)=>{
+  console.log(req.method +" Request Received at ", new Date())
+  next()
+})
 //api routes
 app.use("/api", apiRouter);
 
