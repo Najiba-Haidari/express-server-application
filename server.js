@@ -9,7 +9,7 @@ const port = 3000;
 const apiRouter = require("./routes/index.js");
 const error = require("./utilities/error");
 
-// app.use(express.json());
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
 //api routes
