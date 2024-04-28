@@ -6,6 +6,17 @@ const error = require("../utilities/error.js")
 
 router
     .route("/")
+    //api/exercises?userId=<value>
+    .get((req, res, next) => {
+        const exerciseUserId = req.query.userId;
+        // res.send(exerciseUserId)
+        if (exerciseUserId) {
+          const foundExercises = exercises.filter((ex) => ex.userId == exerciseUserId)
+          res.json(foundExercises);
+        }
+        else next();
+      })
+      //api/exercises
     .get((req, res) => {
         res.json(exercises)
     })

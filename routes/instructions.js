@@ -6,6 +6,17 @@ const exercises = require("../data/exercises");
 
 router
     .route("/")
+    //api/instructions?userId=<value>
+    .get((req, res, next) => {
+        const instructionUserId = req.query.userId;
+        // res.send(instructionUserId)
+        if (instructionUserId) {
+            const foundInstruction = exercises.filter((ins) => ins.userId == instructionUserId)
+            res.json(foundInstruction);
+        }
+        else next();
+    })
+    //api/instructions
     .get((req, res) => {
         res.json(instructions)
     })
@@ -61,9 +72,9 @@ router
                 return true;
             }
         })
-        if(instruction){
+        if (instruction) {
             res.json(instruction)
-        } else{
+        } else {
             next()
         }
     })
